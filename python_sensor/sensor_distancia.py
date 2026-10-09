@@ -11,8 +11,8 @@ baud_rate = 9600
 db_config = {
     'host': 'localhost',
     'user': 'root',        # Seu usuário do MySQL (padrão é 'root')
-    'password': '',        # Sua senha do MySQL (deixe vazio '' se não tiver)
-    'database': 'bd_sensor' # Nome do banco de dados que você vai criar
+    'password': 'root',        # Sua senha do MySQL
+    'database': 'sdd' # Nome do banco de dados que você vai criar
 }
 
 
@@ -32,13 +32,14 @@ try:
             # Lê a linha enviada pelo Arduino, decodifica de bytes para texto e limpa espaços vazios
             linha = arduino.readline().decode('utf-8').strip()
             
+            
             # Verifica se o dado recebido é realmente um número válido
             if linha.isdigit():
                 distancia = int(linha)
                 print(f"Distancia capturada: {distancia} cm")
                 
                 # Prepara o comando SQL para salvar a distância
-                comando_sql = "INSERT INTO historico_distancia (valor_cm) VALUES (%s)"
+                comando_sql = "INSERT INTO historico_distancia (valor_cm, registrado_em) VALUES (%s, NOW())"
                 
                 # Executa o comando e envia a alteração de fato para salvar no MySQL
                 cursor.execute(comando_sql, (distancia,))
