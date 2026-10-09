@@ -1,7 +1,0 @@
-CREATE DATABASE sdd;
-use sdd;
-
-CREATE TABLE historico_distancia(
-id int auto_increment primary key,
-valor_cm int not null
-);
