@@ -4,16 +4,10 @@ import tkinter as tk
 import serial
 import mysql.connector
 
-# ---------- CONFIGURAÇÕES ----------
+
 PORTA_SERIAL = 'COM3'   # altere para a porta do seu Arduino
 BAUD_RATE = 9600
 
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root',
-    'database': 'sdd'
-}
 
 FUNDO = "#12141A"
 DIST_MAX = 200  # distância que enche a barra por completo
@@ -52,7 +46,7 @@ class Rosto:
         self.piscar()
         root.protocol("WM_DELETE_WINDOW", self.fechar)
 
-    # ---------- SERIAL + BANCO ----------
+    
     def ler_serial(self):
         try:
             while self.arduino.in_waiting > 0:
@@ -94,7 +88,7 @@ class Rosto:
             return SURPRESO
         return ASSUSTADO
 
-    # ---------- DESENHO ----------
+    
     def olho(self, x, y, w, h, cor, brilho):
         c = self.c
         # brilho (maior e escuro, fica atrás)
