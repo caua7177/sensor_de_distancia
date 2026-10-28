@@ -1,0 +1,24 @@
+const int trigPin = 9;  // Pino Trigger do HC-SR04
+const int echoPin = 10; // Pino Echo do HC-SR04
+
+void setup() {
+  Serial.begin(9600); // Inicia a comunicação na velocidade 9600 (Baud Rate)
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  long duracao = pulseIn(echoPin, HIGH);
+  int distancia = duracao * 0.0343 / 2; // Converte para centímetros
+  
+  if (distancia > 0 && distancia < 400) { 
+    Serial.println(distancia); // Envia o número puro pelo USB
+  }
+  delay(2000); // Espera 2 segundos antes de ler de novo
+}
